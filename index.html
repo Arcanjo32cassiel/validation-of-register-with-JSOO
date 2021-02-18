@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Validation</title>
+</head>
+
+<body>
+    <div id="main-container">
+        <h1>Cadastre-se para acessar o sistema</h1>
+        <form id="register-form" action="" method="">
+            <div class="full-box">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="Digite seu email" data-min-length="3">
+            </div>
+            <div class="hailf-box spacing">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" placeholder="Digite seu nome">
+            </div>
+            <div class="hailf-box">
+                <label for="lastname">Sobrenome</label>
+                <input type="text" name="lastname" id="lastname" placeholder="Digite seu sobrenome">
+            </div>
+            <div class="hailf-box spacing">
+                <label for="password">senha</label>
+                <input type="password" name="password" id="password" placeholder="Digite your senha">
+            </div>
+            <div class="hailf-box">
+                <label for="passwordconfirmation">senha</label>
+                <input type="password" name="passwordconfirmation" id="passwordconfirmation" placeholder="Digite your senha">
+            </div>
+            <div class="full-box">
+                <input type="checkbox" name="agreement" id="agreement">
+                <label for="agreement" id="agreement-label">Eu li e aceito os <a href="#"> termos de uso</a></label>
+            </div>
+            <div class="full-box">
+                <input type="submit" value="Registrar" id="btn-submit">
+
+            </div>
+        </form>
+    </div>
+    <p class="error-validation template"></p>
+    <script src="/main.js"></script>
+</body>
+
+</html>
