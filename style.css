@@ -19,13 +19,14 @@ label:focus {
 }
 
 a {
-    color: #E60084;
+    color: #fff;
 }
 
 body {
     padding-top: 5vh;
     background-image: url('https://images.unsplash.com/photo-1562092101-2ed7a15cc49d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fGNpdHklMjBuaWdodHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
     background-size: cover;
+    background-clip: content-box;
     /* background-position-y: -150px; */
     background-repeat: no-repeat;
     height: 100vh;
@@ -37,7 +38,7 @@ body {
 #main-container {
     width: 31.25rem;
     margin: 0 auto;
-    background-color: #FFF;
+    background: linear-gradient(#1c3f2b, #0a630abe);
     border-radius: 10px;
     padding: 25px;
 }
@@ -46,6 +47,7 @@ body {
     text-align: center;
     margin-bottom: 25px;
     font-size: 1.6rem;
+    color: white;
 }
 
 form {
@@ -70,7 +72,8 @@ form {
 
 label {
     font-weight: bold;
-    font-size: .8rem;
+    font-size: 1rem;
+    color: #0a7237;
 }
 
 input {
@@ -79,25 +82,29 @@ input {
     font-size: .9rem;
     margin-bottom: 40px;
     transition: .5s all .2s;
+    border-radius: .3rem;
+    border: none;
 }
 
 input:focus {
-    border-color: #E60084;
+    border-color: #68e600;
 }
 
 input[type="submit"] {
-    background-color: #E60084;
+    background-color: #ff9900;
     border: none;
     color: white;
     border-radius: 20px;
     height: 40px;
     cursor: pointer;
-    transition: .4s all;
+    transition: 1s all;
+    font-weight: bold;
 }
 
 input[type="submit"]:hover {
-    background-color: #e03c99;
-    box-shadow: 0 0px 2px 2px #E60084;
+    background: linear-gradient( to left, #e68a0060, #f09307, #e68a0060), right/0% 1px no-repeat;
+    background-size: 100% .1rem;
+    box-shadow: 0 0px 2px 2px #e68a00d2;
 }
 
 #agreement {
@@ -108,13 +115,14 @@ input[type="submit"]:hover {
 #agreement-label {
     display: inline-block;
     width: auto;
+    color: inherit;
 }
 
 
 /* validação */
 
 .error-validation {
-    color: #FF1A1A;
+    color: #c04141;
     position: absolute;
     top: 57px;
     font-size: .8rem;
