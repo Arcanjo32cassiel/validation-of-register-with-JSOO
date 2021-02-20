@@ -109,6 +109,14 @@ input[type="submit"]:hover {
     box-shadow: 0 0px 2px 2px #e68a00d2;
 }
 
+.half-box #eye {
+    position: absolute;
+    top: 1.7rem;
+    left: 12em;
+    cursor: pointer;
+    height: 1rem;
+}
+
 #agreement {
     margin-right: 5px;
 }
@@ -126,7 +134,8 @@ input[type="submit"]:hover {
 .error-validation {
     color: #c04141;
     position: absolute;
-    top: 57px;
+    top: 3.8125rem;
+    left: .4rem;
     font-size: .8rem;
 }
 

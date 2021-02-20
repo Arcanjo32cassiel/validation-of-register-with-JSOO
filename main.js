@@ -175,3 +175,11 @@ submit.addEventListener('click', e => {
     validator.validate(form)
 
 })
+
+let eye = document.getElementById('eye');
+let inputeye = document.getElementById('inputeye')
+eye.addEventListener('click', event => {
+    inputeye.type = inputeye.type === 'text' ? 'password' : 'text';
+    eye.classList.toggle('fa-eye');
+    eye.classList.toggle('fa-eye-slash')
+})
