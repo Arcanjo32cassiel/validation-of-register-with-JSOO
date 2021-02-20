@@ -1,186 +1,165 @@
 class Validator {
-
     constructor() {
         this.validations = [
+            'data-required',
             'data-min-length',
             'data-max-length',
-            'data-only-letters',
             'data-email-validate',
-            'data-required',
+            'data-only-letters',
             'data-equal',
-            'data-password-validate',
+            'data-password-validate'
         ]
     }
-
-    // inicia a validação de todos os campos
     validate(form) {
-
-        // limpa todas as validações antigas
+        // rendeem all validations
         let currentValidations = document.querySelectorAll('form .error-validation');
+        let inputss = document.querySelector('#email')
 
-        if (currentValidations.length) {
-            this.cleanValidations(currentValidations);
+        if (currentValidations.length > 0) {
+            this.cleanValidations(currentValidations, inputss)
         }
 
-        // pegar todos inputs
+        // get every inputs
         let inputs = form.getElementsByTagName('input');
-        // transformar HTMLCollection em arr
+
+        // turns an HTMLCollection into an  array
         let inputsArray = [...inputs];
 
-        // loop nos inputs e validação mediante aos atributos encontrados
-        inputsArray.forEach(function(input, obj) {
+        // loop of inputs and validation against what is found
+        inputsArray.forEach(input => {
 
-            // fazer validação de acordo com o atributo do input
+            // loop in every the validations existing
             for (let i = 0; this.validations.length > i; i++) {
+
+
+                // checks if the current validation exists in the input
                 if (input.getAttribute(this.validations[i]) != null) {
 
-                    // limpa string para saber o método
+                    // cleanring  the string to flip  a method     
                     let method = this.validations[i].replace("data-", "").replace("-", "");
 
-                    // valor do input
-                    let value = input.getAttribute(this.validations[i])
-
-                    // invoca o método
+                    // value of input
+                    let value = input.getAttribute(this.validations[i]);
+                    // console.log(method, value)
+                    // invoke the method
                     this[method](input, value);
-
                 }
+
             }
-
-        }, this);
-
+        }, this)
     }
 
-    // método para validar se tem um mínimo de caracteres
+
+
+    // checks if a  input has  a number  minnimo of caracteres
     minlength(input, minValue) {
+            let inputLength = input.value.length;
 
-        let inputLength = input.value.length;
+            let errorMessage = `O campo  precisa ter pelo menos ${minValue} caracteres`
 
-        let errorMessage = `O campo precisa ter pelo menos ${minValue} caracteres`;
-
-        if (inputLength < minValue) {
-            this.printMessage(input, errorMessage);
+            if (inputLength < minValue) {
+                this.printMessage(input, errorMessage)
+            }
         }
-
-    }
-
-    // método para validar se passou do máximo de caracteres
+        // checks if a  input pass of  limit   of caracteres
     maxlength(input, maxValue) {
+            let inputLength = input.value.length;
 
-        let inputLength = input.value.length;
+            let errorMessage = `O campo  precisa ter  menos que ${maxValue} caracteres`
 
-        let errorMessage = `O campo precisa ter menos que ${maxValue} caracteres`;
-
-        if (inputLength > maxValue) {
-            this.printMessage(input, errorMessage);
+            if (inputLength > maxValue) {
+                this.printMessage(input, errorMessage)
+            }
         }
+        //     // validates emails
+    emailvalidate(input) {
+            // email@email.com 
+            let re = /\S+@\S+\.\S+/;
 
-    }
+            let email = input.value;
 
-    // método para validar strings que só contem letras
+            let errorMessage = `Insira um e-mail no padrão name@email.com `;
+
+            if (!re.test(email)) {
+                this.printMessage(input, errorMessage);
+            }
+        }
+        // validates if the field has only letters
     onlyletters(input) {
-
-        let re = /^[A-Za-z]+$/;;
+        let re = /^[A-Za-z]+$/;
 
         let inputValue = input.value;
 
         let errorMessage = `Este campo não aceita números nem caracteres especiais`;
 
         if (!re.test(inputValue)) {
-            this.printMessage(input, errorMessage);
-        }
-
-    }
-
-    // método para validar e-mail
-    emailvalidate(input) {
-        let re = /\S+@\S+\.\S+/;
-
-        let email = input.value;
-
-        let errorMessage = `Insira um e-mail no padrão matheus@email.com`;
-
-        if (!re.test(email)) {
-            this.printMessage(input, errorMessage);
-        }
-
-    }
-
-    // verificar se um campo está igual o outro
-    equal(input, inputName) {
-
-        let inputToCompare = document.getElementsByName(inputName)[0];
-
-        let errorMessage = `Este campo precisa estar igual ao ${inputName}`;
-
-        if (input.value != inputToCompare.value) {
-            this.printMessage(input, errorMessage);
+            this.printMessage(input, errorMessage)
         }
     }
 
-    // método para exibir inputs que são necessários
+    // checks if the  input is  required
     required(input) {
+            let inputValue = input.value;
 
-        let inputValue = input.value;
+            if (inputValue === '') {
+                let errorMessage = `Esse campo é obrigatório`;
 
-        if (inputValue === '') {
-            let errorMessage = `Este campo é obrigatório`;
-
-            this.printMessage(input, errorMessage);
-        }
-
-    }
-
-    // validando o campo de senha
-    passwordvalidate(input) {
-
-        // explodir string em array
-        let charArr = input.value.split("");
-
-        let uppercases = 0;
-        let numbers = 0;
-
-        for (let i = 0; charArr.length > i; i++) {
-            if (charArr[i] === charArr[i].toUpperCase() && isNaN(parseInt(charArr[i]))) {
-                uppercases++;
-            } else if (!isNaN(parseInt(charArr[i]))) {
-                numbers++;
+                this.printMessage(input, errorMessage);
             }
         }
+        // checks if two fields are equal
+    equal(input, inputName) {
+            let inputToCompare = document.getElementsByName(inputName)[0];
 
-        if (uppercases === 0 || numbers === 0) {
-            let errorMessage = `A senha precisa um caractere maiúsculo e um número`;
+            let errorMessage = `Este campo precisa estar igual ao ${inputName}`;
 
-            this.printMessage(input, errorMessage);
+            if (input.value != inputToCompare.value) {
+                this.printMessage(input, errorMessage);
+            }
         }
+        // validates the field of  password
+    passwordvalidate(input) {
+            // esplodir  string  em um array
 
-    }
+            let charArr = input.value.split("")
 
-    // método para imprimir mensagens de erro
+            let uppercases = 0;
+            let numbers = 0;
+
+            for (let i = 0; charArr.length > i; i++) {
+                if (charArr[i] === charArr[i].toUpperCase() && isNaN(parseInt(charArr[i]))) {
+                    uppercases++;
+                } else if (!isNaN(parseInt(charArr[i]))) {
+                    numbers++;
+                }
+            }
+            if (uppercases === 0 || numbers === 0) {
+                let errorMessage = ` A senha precisa de um caractere maiúsculo e um número`;
+
+                this.printMessage(input, errorMessage);
+            }
+        }
+        // method  to print menssage of error in the display
     printMessage(input, msg) {
+            //  amount of errors
+            let errorsAmt = input.parentNode.querySelector('.error-validation');
+            if (errorsAmt === null) {
+                let template = document.querySelector('.error-validation').cloneNode(true);
 
-        // checa os erros presentes no input
-        let errorsQty = input.parentNode.querySelector('.error-validation');
+                template.textContent = msg;
 
-        // imprimir erro só se não tiver erros
-        if (errorsQty === null) {
-            let template = document.querySelector('.error-validation').cloneNode(true);
+                let inputParent = input.parentNode;
 
-            template.textContent = msg;
+                template.classList.remove('template');
 
-            let inputParent = input.parentNode;
-
-            template.classList.remove('template');
-
-            inputParent.appendChild(template);
+                inputParent.appendChild(template)
+            }
         }
-
-    }
-
-    // remove todas as validações para fazer a checagem novamente
-    cleanValidations(validations) {
+        // clear  thes validations of display
+    cleanValidations(validations, inputss) {
         validations.forEach(el => el.remove());
+        inputss.classList.add('bordervalidate')
     }
-
 }
 
 let form = document.getElementById('register-form');
@@ -188,9 +167,11 @@ let submit = document.getElementById('btn-submit');
 
 let validator = new Validator();
 
-// evento de envio do form, que valida os inputs
-submit.addEventListener('click', function(e) {
+// event that triggers the valitions
+submit.addEventListener('click', e => {
     e.preventDefault();
 
-    validator.validate(form);
-});
+    // passes the form to the validate method
+    validator.validate(form)
+
+})

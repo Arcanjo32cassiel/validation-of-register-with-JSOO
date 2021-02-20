@@ -83,7 +83,9 @@ input {
     margin-bottom: 40px;
     transition: .5s all .2s;
     border-radius: .3rem;
-    border: none;
+    /* border: none; */
+    background: none;
+    color: white;
 }
 
 input:focus {
